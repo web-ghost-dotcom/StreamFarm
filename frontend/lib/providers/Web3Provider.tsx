@@ -56,7 +56,7 @@ createAppKit({
     metadata: {
         name: 'StreamFarm',
         description: 'Real-time agricultural trading platform powered by Somnia Data Streams',
-        url: 'https://streamfarm.app',
+        url: typeof window !== 'undefined' ? window.location.origin : 'https://streamfarm.app',
         icons: ['https://avatars.githubusercontent.com/u/37784886'],
     },
     features: {
@@ -64,6 +64,12 @@ createAppKit({
         email: false,
         socials: false,
     },
+    themeMode: 'dark',
+    allWallets: 'SHOW',
+    featuredWalletIds: [
+        'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+        '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0', // Trust Wallet
+    ],
 })
 
 // Create query client
