@@ -1,0 +1,284 @@
+'use server';
+
+import { createPublicClient, createWalletClient, http, parseUnits, keccak256, toBytes } from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
+import { defineChain } from 'viem';
+import { contracts } from '@/lib/contracts/config';
+
+// Somnia Testnet chain definition
+const somniaTestnet = defineChain({
+    id: 50312,
+    name: 'Somnia Testnet',
+    nativeCurrency: { name: 'STT', symbol: 'STT', decimals: 18 },
+    rpcUrls: {
+        default: { http: [process.env.NEXT_PUBLIC_RPC_URL || 'https://dream-rpc.somnia.network/'] }
+    },
+    blockExplorers: {
+        default: {
+            name: 'Somnia Explorer',
+            url: process.env.NEXT_PUBLIC_EXPLORER_URL || 'https://shannon-explorer.somnia.network'
+        }
+    }
+});
+
+function getPublicClient() {
+    return createPublicClient({
+        chain: somniaTestnet,
+        transport: http()
+    });
+}
+
+function getWalletClient() {
+    const account = privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`);
+    return createWalletClient({
+        account,
+        chain: somniaTestnet,
+        transport: http()
+    });
+}
+
+/**
+ * Register a new batch on-chain
+ */
+export async function registerBatchOnChain(params: {
+    batchId: string;
+    farmerId: string;
+    cropType: string;
+    weightKg: number;
+    qualityGrade: number;
+    locationHash: string;
+    mediaCid: string;
+}) {
+    try {
+        const client = getWalletClient();
+        const batchIdHash = keccak256(toBytes(params.batchId));
+        const farmerIdHash = keccak256(toBytes(params.farmerId));
+        const locationHashBytes = keccak256(toBytes(params.locationHash));
+        const mediaCidHash = keccak256(toBytes(params.mediaCid));
+
+        const { request } = await getPublicClient().simulateContract({
+            address: contracts.batchRegistry.address,
+            abi: contracts.batchRegistry.abi,
+            functionName: 'registerBatch',
+            args: [
+                batchIdHash,
+                farmerIdHash,
+                params.cropType,
+                params.weightKg,
+                params.qualityGrade,
+                locationHashBytes,
+                mediaCidHash
+            ],
+            account: client.account
+        });
+
+        const hash = await client.writeContract(request);
+
+        const receipt = await getPublicClient().waitForTransactionReceipt({ hash });
+
+        return {
+            success: true,
+            txHash: hash,
+            batchId: batchIdHash,
+            blockNumber: receipt.blockNumber
+        };
+    } catch (error) {
+        console.error('registerBatchOnChain error:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        };
+    }
+}
+
+/**
+ * Add lab test results to an existing batch
+ */
+export async function addLabTestOnChain(params: {
+    batchId: `0x${string}`;
+    labTestCid: string;
+}) {
+    try {
+        const client = getWalletClient();
+        const labTestHash = keccak256(toBytes(params.labTestCid));
+
+        const { request } = await getPublicClient().simulateContract({
+            address: contracts.batchRegistry.address,
+            abi: contracts.batchRegistry.abi,
+            functionName: 'addLabTest',
+            args: [params.batchId, labTestHash],
+            account: client.account
+        });
+
+        const hash = await client.writeContract(request);
+        const receipt = await getPublicClient().waitForTransactionReceipt({ hash });
+
+        return {
+            success: true,
+            txHash: hash,
+            blockNumber: receipt.blockNumber
+        };
+    } catch (error) {
+        console.error('addLabTestOnChain error:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        };
+    }
+}
+
+/**
+ * Create an auction for a batch
+ */
+export async function createAuctionOnChain(params: {
+    auctionId: string;
+    batchId: `0x${string}`;
+    farmerId: string;
+    durationSeconds: number;
+    startingPrice: string; // in stablecoin smallest unit
+    reservePrice: string;
+    deliveryLocationHash: string;
+}) {
+    try {
+        const client = getWalletClient();
+        const auctionIdHash = keccak256(toBytes(params.auctionId));
+        const farmerIdHash = keccak256(toBytes(params.farmerId));
+
+        const { request } = await getPublicClient().simulateContract({
+            address: contracts.auctionManager.address,
+            abi: contracts.auctionManager.abi,
+            functionName: 'createAuction',
+            args: [
+                auctionIdHash,
+                params.batchId,
+                farmerIdHash,
+                BigInt(params.durationSeconds),
+                parseUnits(params.startingPrice, 6), // 6 decimals for stablecoin
+                parseUnits(params.reservePrice, 6),
+                params.deliveryLocationHash
+            ],
+            account: client.account
+        });
+
+        const hash = await client.writeContract(request);
+        const receipt = await getPublicClient().waitForTransactionReceipt({ hash });
+
+        return {
+            success: true,
+            txHash: hash,
+            auctionId: auctionIdHash,
+            blockNumber: receipt.blockNumber
+        };
+    } catch (error) {
+        console.error('createAuctionOnChain error:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        };
+    }
+}
+
+/**
+ * Place a bid on an auction
+ */
+export async function placeBidOnChain(params: {
+    auctionId: `0x${string}`;
+    bidAmount: string; // in stablecoin units
+}) {
+    try {
+        const client = getWalletClient();
+
+        const { request } = await getPublicClient().simulateContract({
+            address: contracts.auctionManager.address,
+            abi: contracts.auctionManager.abi,
+            functionName: 'placeBid',
+            args: [params.auctionId, parseUnits(params.bidAmount, 6)],
+            account: client.account
+        });
+
+        const hash = await client.writeContract(request);
+        const receipt = await getPublicClient().waitForTransactionReceipt({ hash });
+
+        return {
+            success: true,
+            txHash: hash,
+            blockNumber: receipt.blockNumber
+        };
+    } catch (error) {
+        console.error('placeBidOnChain error:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        };
+    }
+}
+
+/**
+ * Mint test stablecoins for testing
+ */
+export async function mintTestStablecoins(params: {
+    to: `0x${string}`;
+    amount: string; // in stablecoin units (e.g., "1000" for 1000 USDC)
+}) {
+    try {
+        const client = getWalletClient();
+
+        const { request } = await getPublicClient().simulateContract({
+            address: contracts.stablecoin.address,
+            abi: contracts.stablecoin.abi,
+            functionName: 'mint',
+            args: [params.to, parseUnits(params.amount, 6)],
+            account: client.account
+        });
+
+        const hash = await client.writeContract(request);
+        const receipt = await getPublicClient().waitForTransactionReceipt({ hash });
+
+        return {
+            success: true,
+            txHash: hash,
+            blockNumber: receipt.blockNumber
+        };
+    } catch (error) {
+        console.error('mintTestStablecoins error:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        };
+    }
+}
+
+/**
+ * Approve stablecoin spending for escrow
+ */
+export async function approveStablecoin(params: {
+    spender: `0x${string}`;
+    amount: string;
+}) {
+    try {
+        const client = getWalletClient();
+
+        const { request } = await getPublicClient().simulateContract({
+            address: contracts.stablecoin.address,
+            abi: contracts.stablecoin.abi,
+            functionName: 'approve',
+            args: [params.spender, parseUnits(params.amount, 6)],
+            account: client.account
+        });
+
+        const hash = await client.writeContract(request);
+        const receipt = await getPublicClient().waitForTransactionReceipt({ hash });
+
+        return {
+            success: true,
+            txHash: hash,
+            blockNumber: receipt.blockNumber
+        };
+    } catch (error) {
+        console.error('approveStablecoin error:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        };
+    }
+}

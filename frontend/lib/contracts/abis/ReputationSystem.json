@@ -1,0 +1,645 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_auctionManager",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "MAX_QUALITY_SCORE",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MIN_QUALITY_SCORE",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "QUALITY_PRECISION",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "auctionManager",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract AuctionManager"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "batchFeedback",
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "auctionId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "buyer",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "qualityScore",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "comment",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "timestamp",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "buyerReputations",
+    "inputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "totalPurchases",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "timelyPayments",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "disputesRaised",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalSpent",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "memberSince",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "verified",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "calculateBuyerScore",
+    "inputs": [
+      {
+        "name": "buyer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "calculateFarmerScore",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "farmerReputations",
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "totalSales",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "successfulDeliveries",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "averageQualityScore",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalFeedbackCount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalRevenue",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "memberSince",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "verified",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getBatchFeedback",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct ReputationSystem.QualityFeedback[]",
+        "components": [
+          {
+            "name": "auctionId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "buyer",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "qualityScore",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "comment",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getBuyerReputation",
+    "inputs": [
+      {
+        "name": "buyer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct ReputationSystem.BuyerReputation",
+        "components": [
+          {
+            "name": "totalPurchases",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "timelyPayments",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "disputesRaised",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "totalSpent",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "memberSince",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "verified",
+            "type": "bool",
+            "internalType": "bool"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getFarmerReputation",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct ReputationSystem.FarmerReputation",
+        "components": [
+          {
+            "name": "totalSales",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "successfulDeliveries",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "averageQualityScore",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "totalFeedbackCount",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "totalRevenue",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "memberSince",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "verified",
+            "type": "bool",
+            "internalType": "bool"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "recordSale",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "buyer",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "auctionId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "registerBuyer",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "registerFarmer",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "submitQualityFeedback",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "auctionId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "qualityScore",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "comment",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "verifyBuyer",
+    "inputs": [
+      {
+        "name": "buyer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "verifyFarmer",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "BuyerRegistered",
+    "inputs": [
+      {
+        "name": "buyer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "timestamp",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BuyerVerified",
+    "inputs": [
+      {
+        "name": "buyer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FarmerRegistered",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "timestamp",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FarmerVerified",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "QualityFeedbackSubmitted",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "buyer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "qualityScore",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SaleRecorded",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "buyer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "auctionId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "BuyerAlreadyRegistered",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FarmerAlreadyRegistered",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "FeedbackAlreadySubmitted",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidQualityScore",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "UnauthorizedFeedback",
+    "inputs": []
+  }
+]

@@ -1,0 +1,580 @@
+[
+  {
+    "type": "function",
+    "name": "addLabTest",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "labTestCidHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "allBatchIds",
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "batchExists",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "batches",
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "harvestTimestamp",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "cropType",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "weightKg",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "qualityGrade",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "locationHash",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "mediaCid",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "labTestCidHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "exists",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "farmerBatches",
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getAllBatchIds",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32[]",
+        "internalType": "bytes32[]"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getAllBatches",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct BatchRegistry.Batch[]",
+        "components": [
+          {
+            "name": "batchId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "harvestTimestamp",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "cropType",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "weightKg",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "qualityGrade",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "farmerId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "locationHash",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "mediaCid",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "labTestCidHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "exists",
+            "type": "bool",
+            "internalType": "bool"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getBatch",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct BatchRegistry.Batch",
+        "components": [
+          {
+            "name": "batchId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "harvestTimestamp",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "cropType",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "weightKg",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "qualityGrade",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "farmerId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "locationHash",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "mediaCid",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "labTestCidHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "exists",
+            "type": "bool",
+            "internalType": "bool"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getBatchesPaginated",
+    "inputs": [
+      {
+        "name": "offset",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "limit",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct BatchRegistry.Batch[]",
+        "components": [
+          {
+            "name": "batchId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "harvestTimestamp",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "cropType",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "weightKg",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "qualityGrade",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "farmerId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "locationHash",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "mediaCid",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "labTestCidHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "exists",
+            "type": "bool",
+            "internalType": "bool"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getFarmerBatches",
+    "inputs": [
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32[]",
+        "internalType": "bytes32[]"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "registerBatch",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "harvestTimestamp",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "cropType",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "weightKg",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "qualityGrade",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "locationHash",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "mediaCid",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "totalBatches",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "updateBatchMedia",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "newMediaCid",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "BatchMediaUpdated",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "mediaCid",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BatchRegistered",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "farmerId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "cropType",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "weightKg",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
+        "name": "qualityGrade",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      },
+      {
+        "name": "harvestTimestamp",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "LabTestAdded",
+    "inputs": [
+      {
+        "name": "batchId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "labTestCidHash",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "BatchAlreadyExists",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "BatchDoesNotExist",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "EmptyCropType",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidQualityGrade",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidWeight",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "UnauthorizedFarmer",
+    "inputs": []
+  }
+]
