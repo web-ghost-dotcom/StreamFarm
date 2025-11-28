@@ -23,6 +23,11 @@
     "wagmi": "^2.19.4",
     "zustand": "^5.0.8"
   },
+  "overrides": {
+    "@somnia-chain/streams": {
+      "viem": "$viem"
+    }
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
