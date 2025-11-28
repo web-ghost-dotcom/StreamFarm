@@ -19,9 +19,12 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "three": "^0.181.1",
-    "viem": "2.37.13",
+    "viem": "2.37.8",
     "wagmi": "^2.19.4",
     "zustand": "^5.0.8"
+  },
+  "overrides": {
+    "viem": "2.37.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
